@@ -64,14 +64,6 @@ public class Main {
             if(employee instanceof Worker) {
                 sumWorker += employee.getSalary();
             }
-
-            if (idMap.containsKey(employee.hashCode())) {
-                idMap.get(employee.hashCode()).add(employee);
-            } else {
-                List<Employee> employeeList = new ArrayList<>();
-                employeeList.add(employee);
-                idMap.put(employee.hashCode(), employeeList);
-            }
         }
 
 
