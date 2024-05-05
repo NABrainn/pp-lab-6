@@ -9,5 +9,12 @@ public class Main {
         Worker workerThree = new Worker("Jil", 7000, 3);
 
         Manager managerZero = new Manager("Manny", 1200000, 0);
+
+        workerZero.work();
+        workerOne.work();
+        workerTwo.work();
+        workerThree.work();
+
+        managerZero.work();
     }
 }
