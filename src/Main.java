@@ -2,11 +2,12 @@ import company.abstracts.Employee;
 import company.models.Manager;
 import company.models.Worker;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Worker workerZero = new Worker("Jame", 12000, 0, "08-08-2008", "chef");
+        Worker workerZero = new Worker("Jame", 12000, 98, "08-08-2008", "chef");
         Worker workerOne = new Worker("Jami", 1200, 1, "12-12-2012", "cook");
         Worker workerTwo = new Worker("Jimmy", 4000, 2, "11-11-2011", "cook");
         Worker workerThree = new Worker("Jil", 7000, 3, "10-10-2010", "waiter");
@@ -41,5 +42,63 @@ public class Main {
         System.out.println(workerFirst.equals(workerSecond));
         System.out.println(workerFirst.equals(workerThird));
         System.out.println(workerFirst.equals(managerFirst));
+
+        employees.add(workerFirst);
+        employees.add(workerSecond);
+        employees.add(workerThree);
+
+        employees.add(managerFirst);
+
+        double sumTotal = 0;
+        double sumManager = 0;
+        double sumWorker = 0;
+
+        Map<Integer, List<Employee>> idMap = new HashMap<>();
+
+
+        for(Employee employee : employees) {
+            sumTotal += employee.getSalary();
+            if(employee instanceof Manager) {
+                sumManager += employee.getSalary();
+            }
+            if(employee instanceof Worker) {
+                sumWorker += employee.getSalary();
+            }
+
+            if (idMap.containsKey(employee.hashCode())) {
+                idMap.get(employee.hashCode()).add(employee);
+            } else {
+                List<Employee> employeeList = new ArrayList<>();
+                employeeList.add(employee);
+                idMap.put(employee.hashCode(), employeeList);
+            }
+        }
+
+
+        Worker workerFourth = new Worker("Fami", 4466, 1, "11-12-201", "junior jury");
+        Manager managerSecond = new Manager("Sami", 4774, 1, "11-03-203", "junior manager");
+
+        employees.add(workerFourth);
+        employees.add(managerSecond);
+
+
+        HashSet<Employee> duplicates = new HashSet<Employee>(employees);
+
+        System.out.println("Employees with same ID: ");
+
+        for (Employee duplicate : duplicates) {
+            int freq = Collections.frequency(employees, duplicate);
+            if(freq > 1) {
+                for(Employee employee : employees) {
+                    if(employee.equals(duplicate)) {
+                        System.out.println(employee.getName());
+                    }
+                }
+            }
+        }
+
+        System.out.println("Salary of all: " + sumTotal);
+        System.out.println("Salary of managers: " + sumManager);
+        System.out.println("Salary of workers: " + sumWorker);
     }
 }
