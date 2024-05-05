@@ -21,5 +21,9 @@ public class Main {
         employees.add(workerThree);
 
         employees.add(managerZero);
+
+        for(Employee employee : employees) {
+            System.out.println("Name: " + employee.getName() + ", Position: " + employee.getPosition() + ", Hire date: " + employee.getHireDate() + ", Salary: " + employee.getSalary());
+        }
     }
 }
